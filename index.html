@@ -57,7 +57,8 @@
       --hsize: calc(18px * var(--scale));
       --base:  calc(17px * var(--scale));
       --ctlH:  calc(50px * var(--scale));
-      --pad:   calc(10px * var(--scale));
+      --pad:   calc(12px * var(--scale));
+      --gap:   calc(12px * var(--scale));
     }
     /* Desktop micro downscale ≈ -2% */
     @media (hover:hover) and (pointer:fine) and (min-width: 1024px){
@@ -71,26 +72,31 @@
       background:var(--bg); color:var(--ink);
       font:var(--base)/1.4 var(--mono);
       min-height:100dvh;
-      display:flex; flex-direction:column;
-      gap:var(--pad);
+      max-height:100dvh;
+      display:flex; 
+      flex-direction:column;
+      gap:var(--gap);
       padding:var(--pad);
-      overflow-x:hidden;
-      overflow-y:auto;
+      overflow:hidden;
     }
 
     .hdr,.ftr{
       border:2px solid var(--border-strong);
-      padding:calc(6px * var(--scale)) calc(8px * var(--scale));
-      display:flex; align-items:center; justify-content:space-between; gap:calc(10px * var(--scale));
+      padding:calc(8px * var(--scale)) var(--pad);
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between; 
+      gap:var(--gap);
       background:#0b0b0b;
+      flex-shrink:0;
     }
-    .brand{display:flex; gap:calc(10px * var(--scale)); align-items:center; text-decoration:none; color:var(--ink)}
+    .brand{display:flex; gap:var(--gap); align-items:center; text-decoration:none; color:var(--ink)}
     .brand img{width:calc(34px * var(--scale));height:calc(34px * var(--scale)); image-rendering:pixelated; border:2px solid var(--border)}
     .brand h1{margin:0; font-size:var(--hsize); letter-spacing:.08em; text-transform:uppercase}
 
     .btn{
       background:#151515; color:#e0e0e0; border:2px solid var(--border-strong);
-      padding:calc(12px * var(--scale)) calc(16px * var(--scale));
+      padding:calc(10px * var(--scale)) calc(14px * var(--scale));
       cursor:pointer; text-transform:uppercase; letter-spacing:.06em; white-space:nowrap;
       font-size:calc(15px * var(--scale));
       height:var(--ctlH);
@@ -98,67 +104,160 @@
     .btn:hover{background:#1d1d1d}
 
     .workspace{
-      display:grid; grid-template-columns:1fr var(--sidew);
-      gap:var(--pad);
+      display:grid; 
+      grid-template-columns:1fr var(--sidew);
+      gap:var(--gap);
+      flex:1 1 auto;
+      min-height:0;
+      overflow:hidden;
     }
 
     .panel{
-      border:2px solid var(--border); background:#0b0b0b;
-      display:flex; flex-direction:column;
+      border:2px solid var(--border); 
+      background:#0b0b0b;
+      display:flex; 
+      flex-direction:column;
       min-width:0;
+      min-height:0;
+      overflow:hidden;
     }
     .panel h2{
-      margin:0; padding:calc(10px * var(--scale)); border-bottom:2px solid var(--border);
-      font-size:var(--hsize); color:#e0e0e0; letter-spacing:.06em; text-transform:uppercase;
+      margin:0; 
+      padding:var(--pad); 
+      border-bottom:2px solid var(--border);
+      font-size:var(--hsize); 
+      color:#e0e0e0; 
+      letter-spacing:.06em; 
+      text-transform:uppercase;
+      flex-shrink:0;
     }
     #out{
       flex:1 1 auto;
-      padding:calc(10px * var(--scale)); margin:calc(10px * var(--scale));
-      background:#0e0e0e; border:2px solid var(--border);
-      font-family:monospace; font-size:8px; line-height:8px;
-      white-space:pre; word-break:keep-all; overflow-wrap:normal; user-select:text;
-      overflow:auto; overflow-x:hidden; min-width:0; contain:content;
+      padding:var(--pad); 
+      margin:var(--pad);
+      background:#0e0e0e; 
+      border:2px solid var(--border);
+      font-family:monospace; 
+      font-size:8px; 
+      line-height:8px;
+      white-space:pre; 
+      word-break:keep-all; 
+      overflow-wrap:normal; 
+      user-select:text;
+      overflow:auto;
+      min-width:0; 
+      min-height:0;
+      contain:content;
       color: var(--out-ink, #d0d0d0);
-      max-height:66svh;
     }
     #out.anaglyph{ text-shadow:-1px 0 rgba(255,0,0,.55), 1px 0 rgba(0,255,255,.55); }
 
-    .side{ border:2px solid var(--border-strong); background:#0b0b0b; display:flex; flex-direction:column; min-width:0; }
-    .controls{ padding:calc(14px * var(--scale)); display:flex; flex-direction:column; gap:calc(12px * var(--scale)); }
-    .side h2{ margin:0; font-size:var(--hsize); color:#e0e0e0; letter-spacing:.06em; text-transform:uppercase; border-bottom:2px solid var(--border); padding:calc(10px * var(--scale)) calc(12px * var(--scale)) }
+    .side{ 
+      border:2px solid var(--border-strong); 
+      background:#0b0b0b; 
+      display:flex; 
+      flex-direction:column; 
+      min-width:0;
+      overflow-y:auto;
+      overflow-x:hidden;
+    }
+    .controls{ 
+      padding:var(--pad); 
+      display:flex; 
+      flex-direction:column; 
+      gap:var(--gap); 
+    }
+    .side h2{ 
+      margin:0; 
+      font-size:var(--hsize); 
+      color:#e0e0e0; 
+      letter-spacing:.06em; 
+      text-transform:uppercase; 
+      border-bottom:2px solid var(--border); 
+      padding:var(--pad);
+      flex-shrink:0;
+    }
 
-    .formgrid{ display:grid; grid-template-columns:150px 1fr; gap:calc(14px * var(--scale)) calc(16px * var(--scale)); align-items:center; min-width:0; }
+    .formgrid{ 
+      display:grid; 
+      grid-template-columns:140px 1fr; 
+      gap:var(--gap) calc(14px * var(--scale)); 
+      align-items:center; 
+      min-width:0; 
+    }
     .formgrid .full{ grid-column:1 / -1 }
-    .formgrid label{ font-size:calc(16px * var(--scale)); color:var(--muted); white-space:nowrap }
+    .formgrid label{ 
+      font-size:calc(15px * var(--scale)); 
+      color:var(--muted); 
+      white-space:nowrap 
+    }
 
     .ctl{
-      background:#121212; color:var(--ink); border:2px solid var(--border);
-      height:var(--ctlH); padding:calc(12px * var(--scale)); width:100%; min-width:0; font-size:calc(17px * var(--scale));
+      background:#121212; 
+      color:var(--ink); 
+      border:2px solid var(--border);
+      height:var(--ctlH); 
+      padding:calc(10px * var(--scale)); 
+      width:100%; 
+      min-width:0; 
+      font-size:calc(16px * var(--scale));
     }
     input[type="file"].ctl{ padding:calc(8px * var(--scale)) }
     input[type="color"].ctl{ padding:0; cursor:pointer }
 
-    .toggles{ display:grid; grid-template-columns:repeat(3,1fr); gap:calc(12px * var(--scale)) calc(16px * var(--scale)); align-items:center; width:100%; }
-    .toggle{ display:flex; align-items:center; gap:calc(12px * var(--scale)); font-size:calc(16px * var(--scale)); color:var(--muted); min-width:0 }
-    .toggle input{ width:calc(22px * var(--scale)); height:calc(22px * var(--scale)); accent-color:#666 }
+    .toggles{ 
+      display:grid; 
+      grid-template-columns:repeat(3,1fr); 
+      gap:var(--gap); 
+      align-items:center; 
+      width:100%; 
+    }
+    .toggle{ 
+      display:flex; 
+      align-items:center; 
+      gap:calc(8px * var(--scale)); 
+      font-size:calc(15px * var(--scale)); 
+      color:var(--muted); 
+      min-width:0 
+    }
+    .toggle input{ 
+      width:calc(20px * var(--scale)); 
+      height:calc(20px * var(--scale)); 
+      accent-color:#666;
+      flex-shrink:0;
+    }
 
-    .btnGrid2x2{ display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:1fr; gap:calc(12px * var(--scale)); }
+    .btnGrid2x2{ 
+      display:grid; 
+      grid-template-columns:1fr 1fr; 
+      grid-auto-rows:1fr; 
+      gap:var(--gap); 
+    }
 
+    .ftr{ 
+      flex-shrink:0;
+    }
     .ftr a{ color:#d0d0d0; text-decoration:none }
 
     /* Stack on tablets/phones */
     @media (max-width: 980px){
-      .workspace{ grid-template-columns:1fr; }
-      #out{ max-height:58svh; }
+      body{ max-height:none; overflow-y:auto; }
+      .workspace{ 
+        grid-template-columns:1fr; 
+        overflow:visible;
+      }
+      .panel{ max-height:60vh; }
     }
     /* Tiny phones — two-column toggles & smaller ASCII density */
     @media (max-width: 540px){
       .formgrid{ grid-template-columns: 1fr; }
       .toggles{ grid-template-columns: repeat(2,1fr); }
-      #out{ font-size:7px; line-height:7px; max-height:52svh; }
+      #out{ font-size:7px; line-height:7px; }
+      .panel{ max-height:55vh; }
     }
     @media (max-width:380px){
-      #out{ font-size:6px; line-height:6px; max-height:50svh; }
+      #out{ font-size:6px; line-height:6px; }
+      .panel{ max-height:50vh; }
     }
 
     /* Help dialog — centered & scrollable, click-out closes */
@@ -177,7 +276,7 @@
       margin:0;
     }
     dialog::backdrop{ background: rgba(0,0,0,.6); }
-    .modal-body{ padding:12px; }
+    .modal-body{ padding:var(--pad); }
     .modal-body h3{ margin:0 0 8px 0; letter-spacing:.06em; font-size:var(--hsize); text-transform:uppercase }
     /* Center the Close button */
     .modal-close{ display:block; margin:12px auto 0 auto; }
@@ -286,304 +385,6 @@
   </form>
 </dialog>
 
-<script>
-  const $ = id => document.getElementById(id);
-  const els = {
-    file: $('file'), mode: $('mode'),
-    fit: $('fit'), invert: $('invert'), scan: $('scanlines'), jitter: $('jitter'),
-    scramble: $('scramble'), threeD: $('threeD'),
-    ink: $('ink'), txt: $('txtBtn'), png: $('pngBtn'), pngBig: $('pngBigBtn'),
-    out: $('out'), help: $('help'), helpBtn: $('helpBtn'), shareBtn: $('shareBtn'),
-    resetBtn: $('resetBtn')
-  };
-
-  const FOOTER_LINE = 'generated by ASCII Converter - ironsignalworks.com';
-
-  let asciiText = '';
-  let lastDataUrl = null;
-  let busy = false, queued = false, debounce = null;
-
-  function setInkColor(hex){ els.out.style.setProperty('--out-ink', hex); }
-  setInkColor(els.ink.value);
-
-  function measureCell(){
-    const s = document.createElement('span');
-    s.textContent = 'MMMMMMMMMM';
-    s.style.fontFamily = 'monospace';
-    s.style.fontSize = getComputedStyle(els.out).fontSize;
-    s.style.lineHeight = getComputedStyle(els.out).lineHeight;
-    s.style.visibility = 'hidden';
-    els.out.appendChild(s);
-    const rect = s.getBoundingClientRect();
-    s.remove();
-    const cw = rect.width / 10;
-    const ch = parseFloat(getComputedStyle(els.out).lineHeight) || 8;
-    return {cw, ch};
-  }
-  const allowedCols = ()=> Math.max(20, Math.floor(els.out.clientWidth / measureCell().cw) - 1);
-
-  function fitDims(img){
-    const {cw, ch} = measureCell();
-    const innerW = els.out.clientWidth, innerH = els.out.clientHeight;
-    const maxCols = Math.max(20, Math.floor(innerW / cw) - 1);
-    const maxRows = Math.max(20, Math.floor(innerH / ch) - 1);
-    const imgAspect = img.height / img.width;
-    const charAspect = ch / cw;
-    const desiredRows = Math.max(30, Math.round(maxCols * imgAspect / charAspect));
-    let rows = Math.min(desiredRows, maxRows);
-    let cols = Math.min(maxCols, Math.max(30, Math.round(rows * (1/imgAspect) * charAspect)));
-    cols = Math.max(30, Math.min(cols, maxCols - 1));
-    rows = Math.max(30, Math.min(rows, maxRows - 1));
-    return {cols, rows};
-  }
-
-  const toGray=(r,g,b)=>(0.299*r + 0.587*g + 0.114*b);
-  function hardWrap(text, cols){
-    const lines = text.split("\n").flatMap(line=>{
-      if (line.length <= cols) return [line];
-      const chunks=[]; for(let i=0;i<line.length;i+=cols) chunks.push(line.slice(i,i+cols));
-      return chunks;
-    });
-    return lines.join("\n");
-  }
-
-  function scrambleImageURL(img, intensity=45){
-    const w=img.width,h=img.height;
-    const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d'); ctx.drawImage(img,0,0);
-    const cells = Math.max(8, Math.round(12 + intensity/100*22));
-    const cw=Math.floor(w/cells), ch=Math.floor(h/cells);
-    const blocks=[];
-    for(let y=0;y<cells;y++)for(let x=0;x<cells;x++)blocks.push({sx:x*cw,sy:y*ch,sw:(x===cells-1? w-x*cw:cw),sh:(y===cells-1? h-y*ch:ch)});
-    for(let i=blocks.length-1;i>0;i--){const j=(Math.random()<0.4)?Math.floor(Math.random()*blocks.length):i; [blocks[i],blocks[j]]=[blocks[j],blocks[i]];}
-    const t=document.createElement('canvas'); t.width=w; t.height=h; const tx=t.getContext('2d');
-    blocks.forEach((b,idx)=>{const x=(idx%cells)*cw, y=Math.floor(idx/cells)*ch; tx.drawImage(c,b.sx,b.sy,b.sw,b.sh);});
-    const id=tx.getImageData(0,0,w,h), d=id.data;
-    for(let y=0;y<h;y+=2){const row=tx.getImageData(0,y,w,1); tx.putImageData(row, Math.max(-2, Math.min(2,(Math.random()*2-1)*2)), y);}
-    for(let i=0;i<d.length;i+=4){const n=(Math.random()-0.5)*18; d[i]+=n; d[i+1]+=n; d[i+2]+=n;}
-    tx.putImageData(id,0,0);
-    return t.toDataURL('image/png');
-  }
-
-  function convertASCII(img, cols, rows, mode, invert=false){
-    const c=document.createElement('canvas'); c.width=cols; c.height=rows;
-    const ctx=c.getContext('2d',{willReadFrequently:true}); ctx.drawImage(img,0,0,cols,rows);
-    const data=ctx.getImageData(0,0,cols,rows).data;
-    const gray=new Float32Array(cols*rows); for(let i=0,p=0;i<data.length;i+=4,p++) gray[p]=toGray(data[i],data[i+1],data[i+2]);
-
-    const dense="@#S%?*+;:,."; const sparse="@%#*+=-:. "; const blocks="█▓▒░ "; const binary="01";
-    const pick=(v,pal)=> pal[Math.floor(v/255*(pal.length-1))];
-    let out='';
-
-    if (mode==='edges'){
-      const gxK=[-1,0,1,-2,0,2,-1,0,1], gyK=[-1,-2,-1,0,0,0,1,2,1];
-      const grad=(x,y)=>{let sx=0,sy=0,k=0; for(let j=-1;j<=1;j++){for(let i=-1;i<=1;i++,k++){const X=Math.min(cols-1,Math.max(0,x+i)), Y=Math.min(rows-1,Math.max(0,y+j)); const v=gray[Y*cols+X]; sx+=v*gxK[k]; sy+=v*gyK[k];}} return Math.min(255,Math.hypot(sx,sy));};
-      const pal=invert?" .:-=+*#%@":"@%#*+=-:. ";
-      for(let y=0;y<rows;y++){ for(let x=0;x<cols;x++){const g=grad(x,y); out+=pick(invert?(255-g):g,pal);} out+="\n"; }
-    } else {
-      const pal=(mode==='ascii-dense')?dense:(mode==='ascii-sparse')?sparse:(mode==='blocks')?blocks:binary;
-      for(let y=0;y<rows;y++){ for(let x=0;x<cols;x++){const v=gray[y*cols+x]; const t=invert?v:(255-v); out+=(mode==='binary')?((t>128)?'1':'0'):pick(t,pal);} out+="\n"; }
-    }
-    return out;
-  }
-
-  function applyEffects(text){
-    let lines=text.split("\n");
-    if (els.scan.checked){ lines=lines.map((ln,i)=> i%2===1 ? ln.replace(/[^ \n]/g, ch => ch===' ' ? ' ' : '.') : ln); }
-    if (els.jitter.checked){
-      const maxShift=2;
-      lines = lines.map(ln=>{
-        const s=Math.floor(Math.random()*(maxShift*2+1))-maxShift;
-        if (s>0) return ' '.repeat(s)+ln.slice(0, Math.max(0, ln.length-s));
-        if (s<0) return ln.slice(-s).padEnd(ln.length,' ');
-        return ln;
-      });
-    }
-    return lines.join("\n");
-  }
-
-  function renderFitted(img, cols, rows){
-    busy=true;
-
-    let text=convertASCII(img, cols, rows, els.mode.value, els.invert.checked);
-    let maxCols=allowedCols();
-    text=hardWrap(text,maxCols);
-    text=applyEffects(text);
-
-    els.out.textContent=text;
-
-    let guard=0;
-    while(els.out.scrollWidth>els.out.clientWidth && maxCols>40 && guard<30){
-      maxCols -= 1;
-      text = applyEffects(hardWrap(text,maxCols));
-      els.out.textContent = text;
-      guard++;
-    }
-
-    asciiText=text;
-    els.txt.disabled=false; els.png.disabled=false; els.pngBig.disabled=false;
-    els.out.classList.toggle('anaglyph', els.threeD.checked);
-
-    busy=false; if (queued){ queued=false; schedule(60); }
-  }
-
-  function doConvert(){
-    if (!lastDataUrl) return;
-    const original=new Image();
-    original.onload=()=>{
-      let srcURL=lastDataUrl;
-      if (els.scramble.checked){ srcURL = scrambleImageURL(original,45); }
-      const pre=new Image();
-      pre.onload=()=>{
-        let cols,rows;
-        if (els.fit.checked){
-          const fit=fitDims(pre); cols=fit.cols; rows=fit.rows;
-        } else {
-          cols=Math.max(40, Math.floor(allowedCols()*0.7));
-          const {cw,ch}=measureCell(); const charAspect=ch/cw; const imgAspect=pre.height/pre.width;
-          rows=Math.max(30, Math.round(cols*imgAspect/charAspect));
-        }
-        renderFitted(pre,cols,rows);
-      };
-      pre.src=srcURL;
-    };
-    original.src=lastDataUrl;
-  }
-
-  function schedule(wait=100){
-    if (!lastDataUrl) return;
-    if (busy){ queued=true; return; }
-    clearTimeout(debounce); debounce=setTimeout(doConvert,wait);
-  }
-
-  els.file.addEventListener('change', ()=>{
-    if (!els.file.files.length) return;
-    els.out.textContent='[Loading image…]';
-    const fr=new FileReader();
-    fr.onload=e=>{ lastDataUrl=e.target.result; schedule(10); };
-    fr.readAsDataURL(els.file.files[0]);
-    els.txt.disabled=true; els.png.disabled=true; els.pngBig.disabled=true;
-  });
-
-  ['change','input'].forEach(evt=>{
-    [els.mode, els.fit, els.invert, els.scan, els.jitter, els.scramble, els.threeD, els.ink]
-      .forEach(el=> el.addEventListener(evt, ()=>{
-        if (el===els.ink) els.out.style.setProperty('--out-ink', els.ink.value);
-        schedule();
-      }));
-  });
-
-  els.resetBtn.addEventListener('click', ()=>{
-    asciiText=''; els.out.textContent='[Awaiting image]';
-    els.txt.disabled=true; els.png.disabled=true; els.pngBig.disabled=true;
-    lastDataUrl=null;
-    els.file.value='';
-    els.mode.value='ascii-dense';
-    els.ink.value='#d0d0d0'; els.out.style.setProperty('--out-ink', els.ink.value);
-    els.fit.checked=true; els.invert.checked=false; els.scan.checked=false;
-    els.jitter.checked=false; els.scramble.checked=false; els.threeD.checked=false;
-  });
-
-  function exportPNG(text, scale=1){
-    const cs = getComputedStyle(els.out);
-    const outFont = parseFloat(cs.fontSize) || 8;
-    const outLine = parseFloat(cs.lineHeight) || 8;
-    const ratio = outLine / outFont;
-
-    const baseFont = outFont * scale;
-    const baseLine = baseFont * ratio;
-    const pad = Math.max(6, Math.round(8 * scale));
-
-    const lines = text.split("\n");
-
-    const m = document.createElement('canvas').getContext('2d');
-    m.font = `${baseFont}px monospace`;
-    const width = Math.min(6000, Math.max(...lines.map(l => m.measureText(l).width)) + pad * 2);
-    const textHeight = Math.min(6000, Math.ceil(lines.length * baseLine + pad * 2));
-
-    const clamp = (v,min,max)=>Math.max(min,Math.min(max,v));
-    let footerH = clamp(Math.round(textHeight * 0.08), Math.round(16 * scale), Math.round(72 * scale));
-    const height = textHeight + footerH;
-
-    const canvas = document.createElement('canvas');
-    canvas.width = Math.ceil(width);
-    canvas.height = Math.ceil(height);
-    const ctx = canvas.getContext('2d');
-
-    ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.strokeStyle = '#3a3a3a';
-    ctx.strokeRect(0.5,0.5,canvas.width-1,canvas.height-footerH-0.5);
-
-    ctx.font = `${baseFont}px monospace`;
-    ctx.textBaseline = 'top';
-    ctx.fillStyle = els.ink.value || '#d0d0d0';
-    for (let i=0;i<lines.length;i++){
-      ctx.fillText(lines[i], pad, Math.round(pad + i * baseLine));
-    }
-
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, canvas.height - footerH, canvas.width, footerH);
-
-    let footerFont = clamp(Math.floor(footerH * 0.6), Math.floor(10 * scale), Math.floor(28 * scale));
-    ctx.fillStyle = '#bdbdbd';
-    ctx.textBaseline = 'alphabetic';
-    ctx.font = `${footerFont}px monospace`;
-
-    const sig = 'generated by ASCII Converter - ironsignalworks.com';
-    let sigWidth = ctx.measureText(sig).width;
-    const innerW = canvas.width - pad * 2;
-
-    while (sigWidth > innerW && footerFont > 8){
-      footerFont -= 1;
-      ctx.font = `${footerFont}px monospace`;
-      sigWidth = ctx.measureText(sig).width;
-    }
-
-    const sigY = canvas.height - Math.round((footerH - footerFont) / 2) - Math.floor(footerFont * 0.2);
-    ctx.fillText(sig, pad, sigY);
-
-    return canvas.toDataURL('image/png');
-  }
-
-  els.txt.addEventListener('click', ()=>{
-    const blob=new Blob([asciiText+'\n\n'+'generated by ASCII Converter - ironsignalworks.com'+'\n'],{type:'text/plain'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='ascii_isw.txt'; a.click(); URL.revokeObjectURL(a.href);
-  });
-  els.png.addEventListener('click', ()=>{
-    const data=exportPNG(asciiText,1);
-    const a=document.createElement('a'); a.href=data; a.download='ascii_isw.png'; a.click();
-  });
-  els.pngBig.addEventListener('click', ()=>{
-    const data=exportPNG(asciiText,2.0);
-    const a=document.createElement('a'); a.href=data; a.download='ascii_isw_big.png'; a.click();
-  });
-
-  $('shareBtn').addEventListener('click', ()=>{
-    const base='https://ironsignalworks.github.io/asciiconverter/';
-    const p=new URLSearchParams();
-    p.set('mode',els.mode.value);
-    p.set('fit',els.fit.checked?'1':'0');
-    p.set('inv',els.invert.checked?'1':'0');
-    p.set('scan',els.scan.checked?'1':'0');
-    p.set('jit',els.jitter.checked?'1':'0');
-    p.set('scr',els.scramble.checked?'1':'0');
-    p.set('td',els.threeD.checked?'1':'0');
-    p.set('ink',els.ink.value.replace('#',''));
-    p.set('utm_source','ascii-converter'); p.set('utm_medium','share'); p.set('utm_campaign','lab-to-site');
-    navigator.clipboard.writeText(base+'?'+p.toString()).then(()=>{ const b=$('shareBtn'); b.textContent='COPIED'; setTimeout(()=>b.textContent='SHARE',1200); });
-  });
-
-  $('helpBtn').addEventListener('click', ()=> $('help').showModal());
-
-  /* Click-outside-to-close for the dialog */
-  els.help.addEventListener('click', (e)=>{
-    const form = els.help.querySelector('form');
-    const r = form.getBoundingClientRect();
-    const inside = (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom);
-    if (!inside) els.help.close();
-  });
-
-  let resizeTimer=null;
-  window.addEventListener('resize', ()=>{ if (!lastDataUrl) return; clearTimeout(resizeTimer); resizeTimer=setTimeout(()=>schedule(40),120); });
-</script>
+<script type="module" src="src/main.js"></script>
 </body>
 </html>

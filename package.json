@@ -1,0 +1,24 @@
+{
+  "name": "asciiconverter",
+  "version": "2.0.0",
+  "description": "DOS-style image to ASCII converter with live rendering and exports",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve .",
+    "validate": "node scripts/validate.js",
+    "check": "node --check src/main.js && node --check src/utils/dom.js && node --check src/utils/image.js && node --check src/utils/ascii.js && node --check src/utils/export.js",
+    "lint": "npx eslint src/"
+  },
+  "keywords": [
+    "ascii",
+    "converter",
+    "image",
+    "retro",
+    "dos"
+  ],
+  "author": "Iron Signal Works",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  }
+}
