@@ -1,4 +1,4 @@
-# !(public/icon.svg) ASCII Converter
+# ASCII Converter
 
 DOS-style image to ASCII converter with live rendering and tidy exports.
 
