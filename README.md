@@ -1,4 +1,4 @@
-# ASCII Converter
+# ![Signal Bloom](public/icon.svg) ASCII Converter
 
 DOS-style image to ASCII converter with live rendering and tidy exports.
 
